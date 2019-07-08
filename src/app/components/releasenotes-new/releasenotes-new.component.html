@@ -1,0 +1,253 @@
+<!-- Início -->
+<div class="col-md-12">
+
+  <!-- Bordas -->
+  <div class="nav-tabs-custom">
+    <h3>Nova Release</h3>
+
+    <!-- Dados da NOTA -->
+    <div class="box-header with-border">
+      <form class="form-horizontal" autocomplete="off" #form="ngForm" (ngSubmit)="register()" novalidate>
+
+
+        <!--  Dados Gerais -->
+        <div class="col-md-12">
+          <div class="col-md-1 "></div>
+          <div class="col-md-12">
+
+            <h4 class="mb-3 text-muted subtitulo">1.Dados Gerais</h4>
+            <hr class="mb-4 titulolinha">
+            <div class="col-md-12 col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(dataCriacao.invalid,dataCriacao.dirty)">
+                <label class="campo" for="firstName">Data de Criação</label>
+                <input type="Date" [(ngModel)]="releasenotes.dataCriacao" class="form-control campo" name="dataCriacao"
+                  id="inputDataCriacao" placeholder="" value="" #dataCriacao="ngModel" required>
+                <span class="help-block" *ngIf="dataCriacao.invalid && dataCriacao.dirty">Data Necessário</span>
+              </div>
+            </div>
+            <div class="col-md-12  col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(nomeSistema.invalid,nomeSistema.dirty)">
+                <label class="campo" for="firstName">Sistema</label>
+                <select [(ngModel)]="releasenotes.nomeSistema" class="form-control campo" name="nomeSistema"
+                  id="selectNomeSistema" #nomeSistema="ngModel" required>
+                  <option value="" selected> escolha o sistema</option>
+                  <option>SIFUG</option>
+                  <option>SIDFG</option>
+                  <option>SICTF</option>
+                  <option>SIRMO</option>
+                  <option>SIOFG</option>
+                  <option>SIMIG</option>
+                  <option>SIRFG</option>
+                  <option>SINCO</option>
+                  <option>SIRPL</option>
+                  <option>SIFAG</option>
+                  <option>SIAES</option>
+                </select>
+                <span class="help-block campo" *ngIf="nomeSistema.invalid && nomeSistema.dirty">Sistema
+                  Necessário</span>
+              </div>
+            </div>
+            <div class="col-md-12  col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(tipoDeploy.invalid,tipoDeploy.dirty)">
+                <label class="campo" for="firstName">Tipo</label>
+                <select [(ngModel)]="releasenotes.tipoDeploy" class="form-control campo" name="tipoDeploy"
+                  id="selectTipoDeploy" #tipoDeploy="ngModel" required>
+                  <option value="" selected> escolha o tipo</option>
+                  <option>Padrão</option>
+                  <option>Hotfix</option>
+
+                </select>
+                <span class="help-block" *ngIf="tipoDeploy.invalid && tipoDeploy.dirty">Tipo Necessário</span>
+              </div>
+            </div>
+            <div class="col-md-12  col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(ambienteDeploy.invalid,ambienteDeploy.dirty)">
+                <label class="campo" for="firstName">Ambiente</label>
+                <select [(ngModel)]="releasenotes.ambienteDeploy" class="form-control campo" name="ambienteDeploy"
+                  id="selectAmbienteDeploy" #ambienteDeploy="ngModel" required>
+                  <option value="" selected> escolha o ambiente</option>
+                  <option>Homologação</option>
+                  <option>Restrito</option>
+                  <option>Produção</option>
+                </select>
+                <span class="help-block" *ngIf="ambienteDeploy.invalid && ambienteDeploy.dirty">Ambiente
+                  Necessário</span>
+              </div>
+            </div>
+
+            <div class="col-md-12  col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(versaoCodigoFonte.invalid,versaoCodigoFonte.dirty)">
+                <label class="campo" for="firstName">TAG (GIT)</label>
+                <input type="text" pattern="[a-z\s]{1}[0-9]{8}" [(ngModel)]="releasenotes.versaoCodigoFonte"
+                  name="versaoCodigoFonte" class="form-control campo" id="inputVersaoCodigoFonte"
+                  placeholder="[VEC]AAAAMMdd" #versaoCodigoFonte="ngModel" value="" required>
+                <span class="help-block" *ngIf="versaoCodigoFonte.invalid && versaoCodigoFonte.dirty">Padrão A00000000
+                  necessário</span>
+              </div>
+            </div>
+
+            <div class="col-md-12  col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(versaoCodigoCompilado.invalid,versaoCodigoCompilado.dirty)">
+                <label class="campo" for="firstName">Versão (Nexus)</label>
+                <input type="text" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{3}$"
+                  [(ngModel)]="releasenotes.versaoCodigoCompilado" name="versaoCodigoCompilado"
+                  class="form-control campo" id="inputVersaoCodigoCompilado" placeholder="__.__.__.___"
+                  #versaoCodigoCompilado="ngModel" value="" required>
+                <span class="help-block" *ngIf="versaoCodigoCompilado.invalid && versaoCodigoCompilado.dirty">Padrão
+                  00.00.00.000 necessário</span>
+              </div>
+            </div>
+
+            <!--Linha-->
+            <div class="col-md-12  col-sm-1">
+              <hr class="mb-12 linha">
+            </div>
+            <!--./Linha-->
+
+            <div class="col-md-12 col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(nomeCoordTi.invalid,nomeCoordTi.dirty)">
+                <label class="campo" for="firstName">Coordenador de TI</label>
+
+                <input type="text" pattern="[a-z\s]+$" [(ngModel)]="releasenotes.nomeCoordTi" name="nomeCoordTi"
+                  class="form-control campo" id="inputNomeCoordTi" placeholder="" #nomeCoordTi="ngModel" value=""
+                  required>
+                <!--<span class="help-block" *ngIf="nomeCoordTi.invalid && nomeCoordTi.dirty">Nome necessário</span>-->
+              </div>
+            </div>
+
+            <div class="col-md-12 col-sm-1 campo">
+              <div [ngClass]="getFormGroupClass(nomeCoordProjeto.invalid,nomeCoordProjeto.dirty)">
+                <label class="campo" for="firstName">Coordenador de Projeto</label>
+                <input type="text" pattern="[a-z\s]+$" [(ngModel)]="releasenotes.nomeCoordProjeto"
+                  name="nomeCoordProjeto" class="form-control campo" id="inputNomeCoordProjeto"
+                  #nomeCoordProjeto="ngModel" placeholder="" value="" required>
+                <span class="help-block" *ngIf="nomeCoordProjeto.invalid && nomeCoordProjeto.dirty">Nome
+                  necessário</span>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <!--/.Dados Gerais -->
+
+
+
+
+        <!--  Escopo Início -->
+        <div class="col-md-12">
+          <div class="col-md-1 "></div>
+          <div class="col-md-12">
+            <h4 class="mb-3 text-muted subtitulo">2. Escopo</h4>
+
+            <hr class="mb-4 titulolinha">
+
+            <!--Linha-->
+            <div class="col-md-12  col-sm-1">
+              <hr class="mb-12 linha">
+            </div>
+            <!--./Linha-->
+
+            <!--tabela-->
+            <div class="col-md-12 col-sm-1 campo">
+              <label for="firstName">Equipe Responsável</label>
+              <table class="table table-striped thead-dark ">
+                <!-- legenda-->
+                <thead>
+                  <tr>
+                    <th
+                      style="border: 0px; padding-bottom: 0px;padding-top: 12px; width:15%; text-align: left; background-color: #343a4061; color: #f4f4f4;">
+                      Matrícula </th>
+                    <th
+                      style=" border: 0px; padding-bottom: 0px;padding-top: 12px; width:60%;text-align: left; background-color: #343a4061; color: #f4f4f4;">
+                      Nome</th>
+                    <th
+                      style=" border: 0px; padding-bottom: 0px;padding-top: 12px; width:20%;text-align: left; background-color: #343a4061; color: #f4f4f4;">
+                      Papel</th>
+                    <th
+                      style=" border: 0px; padding-bottom: 5px;padding-top: 5px;  width:5%;  background-color: #343a4061;  text-align:right">
+                      <button class="btn btn-success btn-sm " type="button" style=" border-top: 0px; text-align:right" (click)="abrirCadListaTeam()"
+                        data-toggle="tooltip" data-placement="top" title="Adicionar"><i
+                          class="glyphicon glyphicon-plus"></i></button>
+
+                    </th>
+                  </tr>
+                </thead>
+                <!-- vazio-->
+                <tr>                  
+                  <td style="border-top: 0px; max-width:50px; padding-left: 2px;"> 
+                      <input type="text" [(ngModel)]="listTeamInput.matricula" name="listteammatricula" #listteammatricula="ngModel" 
+                      class="form-control" id="inputlistteamMatricula" placeholder="" value="" >
+                    </td>
+
+                  <td style="border-top: 0px; max-width:40px;  padding-left: 2px;"> 
+                    <input type="text" [(ngModel)]="listTeamInput.nome" name="listteamnome" #listteamnome="ngModel"  
+                    class="form-control" id="inputlistteamNome" placeholder="" value="" ></td>
+
+                  <td style="border-top: 0px; max-width:80px; padding-left: 2px;"> 
+                    <input type="text" [(ngModel)]="listTeamInput.papel" name="listteampapel" #listteampapel="ngModel" 
+                    class="form-control" id="inputlistteamPapel" placeholder="" value="" >
+                    
+                   
+                  
+                  </td>
+                  
+                  <td style="border-top: 0px; text-align:right; padding-top: 10px;">
+                    <button class="btn btn-info btn-sm" type="button" (click)="salvarListaTeam()" data-toggle="tooltip" data-placement="top" title="Salvar">
+                      <i class="glyphicon glyphicon-save"></i>
+                    </button>
+                  </td>
+                </tr>
+                <!-- lista-->
+                <tbody>
+                  <tr *ngFor="let t of releasenotes.listteam">
+                    <td style="border-color:#343a4061;padding-bottom: 0px;padding-top: 8px;border-top-width: 1px;">
+                      {{t.matricula}}
+                    </td>
+                    <td style="border-color:#343a4061;padding-bottom: 0px;padding-top: 8px;border-top-width: 1px;">
+                      {{t.nome}}</td>
+                    <td style="border-color:#343a4061;padding-bottom: 0px;padding-top: 8px;border-top-width: 1px;">
+                      {{t.papel}}
+                    </td>
+                    <td
+                      style="text-align:right; border-color:#343a4061;padding-bottom: 3px;padding-top: 3px;border-top-width: 1px;">
+
+                      <button class="btn btn-danger btn-sm" (click)="excluirListaTeam(t.codigo)" data-toggle="tooltip"
+                        data-placement="top" type="button" title="Deletar">
+                        <i class="glyphicon glyphicon-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+
+
+
+              </table>
+            </div>
+            <!-- /. tabela-->
+
+          </div>
+          <div class="col-md-1 "></div>
+        </div>
+        <!--/.Escopo Início-->
+
+
+
+        <!--  Footer component-->
+
+        <div class="col-md-12  col-sm-1">
+          <!--Linha-->
+          <hr class="mb-12 linha">
+          <button type="submit"  class="btn btn-info pull-right">Submit</button>
+        </div>
+        <!--/.Footer component-->
+      </form>
+
+    </div>
+    <!-- /. Dados da NOTA  -->
+
+  </div>
+  <!-- /. Bordas -->
+
+</div>
+<!-- /. FIM -->

@@ -1,0 +1,124 @@
+  
+<section class="content" style="padding-top: 5px;">
+
+   
+
+  <section class="col-lg-12 connectedSortable">
+  
+      <div class="row">
+        <div class="col-md-10"style="margin-left:0%">
+ 
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Listar Ticket</h3>
+    </div>
+
+    <div class="box-body">
+
+
+        <div class="col-md-12" style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px;">
+      <div class="form-group" *ngIf="shared.user.profile == 'ROLE_TECHNICIAN'">
+            <div class="checkbox; input-group-text;">
+                <label>
+                  <input type="checkbox" 
+                        name="assignedToMe"
+                        id="assignedToMe"
+                        [(ngModel)]="assignedToMe">
+                        <b>Atribuídos</b>
+                </label>
+            </div>
+        </div> 
+      </div> 
+        <div class="col-md-12" style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px;">
+        <div class="form-group">
+          <label for="inputNumeroNotaRelease" class="col-md-4 control-label">Nota de Release</label>
+          <div class="col-md-8"style="padding-right: 0px; padding-left: 0px;">
+            <input type="text" 
+                    [(ngModel)]="ticketFilter.numeroNotaRelease"
+                    name="numeroNotaRelease" 
+                    class="form-control" 
+                    id="inputNumeroNotaRelease">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="padding-right: 0px; padding-left: 0px;">
+        <div class="form-group"> 
+          <label for="inputStatus" class="col-md-4 control-label">Status</label>
+          <div class="col-md-8"style="padding-right: 0px; padding-left: 0px;">
+            <select [(ngModel)]="ticketFilter.status" 
+                class="form-control select2" 
+                name="status"
+                id="inputStatus"
+                style="width: 100%;">
+                <option>Novo</option>
+                <option>Atribuído</option>
+                <option>Inconforme</option>
+                <option>Reavaliar</option>
+                <option>Aprovado</option>
+                <option>Reprovado</option>
+                <option>Cancelado</option>
+              </select>
+          </div>
+      </div>
+    </div>
+     
+       
+       
+    </div>
+    
+    
+    <div class="box-footer">
+        <button class="btn btn-info pull-left" (click)="cleanFilter()">Limpar Filtros</button>
+        <button style="margin-left: 10px" class="btn btn-info pull-right" (click)="filter()">Filtrar</button>
+    </div>
+    <div class="box-body">
+      <table class="table table-bordered">
+        <tr>
+          <th>Codigo</th>
+          <th>Nota de Release</th>
+          <th>Coordenação</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th style="width: 10px" *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">&nbsp;</th>
+          <th style="width: 10px" *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">&nbsp;</th>
+          <th style="width: 10px">&nbsp;</th>
+        </tr>
+        <tr *ngFor="let ticket of listTicket">
+          <td>{{ticket.codigo}}</td>
+          <td>{{ticket.numeroNotaRelease}}</td>
+          <td>{{ticket.user.coordenacao}}</td>
+          <td>{{ticket.status}}</td>
+          <td>{{ticket.user.matricula}}</td>
+          <td *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">
+              <button class="btn btn-primary" (click)="edit(ticket.codigo)" data-toggle="tooltip" data-placement="top" title="Editar"
+              [disabled]="!(shared.user.profile == 'ROLE_CUSTOMER' && (ticket.status == 'Novo' || ticket.status == 'Questionado'))">
+              <i class="glyphicon glyphicon-pencil"></i></button>
+          </td>
+          <td *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">
+              <button class="btn btn-danger" (click)="delete(ticket.codigo)" data-toggle="tooltip" data-placement="top" title="Deletar"
+                [disabled]="!(shared.user.profile == 'ROLE_CUSTOMER' && ticket.status == 'Novo')"><i class="glyphicon glyphicon-remove"></i></button>
+          
+               
+          </td>
+          <td><button class="btn btn-success" (click)="detail(ticket.codigo)" data-toggle="tooltip" data-placement="top" title="Detalhar"
+           ><i class="glyphicon glyphicon-search"></i></button></td>
+        </tr>
+      </table>
+    </div>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li><a href="" (click)="setPreviousPage($event)">&laquo;</a></li>
+          <li *ngFor="let p of pages; let i=index">
+              <a [ngClass]="{'pagination-focus':i==page}"  href="" (click)="setPage(i,$event)">{{i+1}}</a>
+          </li>
+          <li><a href="" (click)="setNextPage($event)">&raquo;</a></li>
+        </ul>
+      </div>
+  </div>
+  </div>
+  </div>
+
+  </section>
+
+</section>

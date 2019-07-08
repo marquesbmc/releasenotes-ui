@@ -1,0 +1,22 @@
+<app-header [hidden]="!showTemplate" style="z-index: 50;"></app-header>
+<app-menu [hidden]="!showTemplate" style="z-index: 51; height: 100%;"></app-menu>
+
+
+
+
+<div [ngClass]="showContentWrapper()" style="z-index: 90000; min-height: 0px">
+
+    <section class="content-header" [hidden]="!showTemplate">
+    </section>
+
+
+
+
+    <section class="content">
+        <router-outlet></router-outlet>
+        <!--<app-nr-new></app-nr-new>-->
+    </section>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<app-footer [hidden]="!showTemplate"></app-footer>

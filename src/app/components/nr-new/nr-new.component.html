@@ -1,0 +1,123 @@
+<!-- Início -->
+<div class="col-md-12">
+  <label>
+    Name:
+    <input type="text" [formControl]="name">
+  </label>
+  <p>
+    Value: {{ name.value }}
+  </p>
+  <p>
+    <button (click)="updateName()">Update Name</button>
+  </p>
+ <!--Linha-->
+ <div class="col-md-12  col-sm-1">
+    <hr class="mb-12 linha">
+  </div>
+  <!--./Linha-->
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  
+      <label>
+        First Name:
+        <input type="text" formControlName="firstName" required>
+      </label>
+    
+      <label>
+        Last Name:
+        <input type="text" formControlName="lastName" required>
+      </label>
+
+      <div formGroupName="address">
+          <h3>Address</h3>
+        
+          <label>
+            Street:
+            <input type="text" formControlName="street">
+          </label>
+        
+          <label>
+            City:
+            <input type="text" formControlName="city">
+          </label>
+          
+          <label>
+            State:
+            <input type="text" formControlName="state">
+          </label>
+        
+          <label>
+            Zip Code:
+            <input type="text" formControlName="zip">
+          </label>
+        </div>
+     <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    </form>
+    <p>
+        <button (click)="updateProfile()">Update Profile</button>
+    </p>
+
+  <!--Linha-->
+  <div class="col-md-12  col-sm-1">
+    <hr class="mb-12 linha">
+  </div>
+  <!--./Linha-->
+
+
+
+  <!-- Bordas -->
+  <div class="nav-tabs-custom">
+      <h3>Nova Release</h3>
+  
+      <!-- Dados da NOTA -->
+      <div class="box-header with-border">
+         
+          <form [formGroup]="nrForm" autocomplete="off" (ngSubmit)="onSubmitNR()">
+       <!-- <form class="form-horizontal" autocomplete="off" #form="ngForm" (ngSubmit)="register()" novalidate></form>-->
+  
+       <div class="col-md-12  col-sm-1 campo">
+          <div >
+            <label class="campo">TAG (GIT) teste</label>
+            <input type="text"  
+              formControlName="versaoCodigoFonte"
+              id="inputVersaoCodigoFonte"
+              class="form-control campo"
+              required>
+          </div>
+        </div>
+
+
+       <div class="col-md-12  col-sm-1 campo">
+          <div >
+            <label class="campo">Versão (Nexus)</label>
+            <input type="text"  
+              formControlName="versaoCodigoCompilado"
+              id="inputversaoCodigoCompilado"
+              class="form-control campo"
+              required>
+          </div>
+        </div>
+
+        <p>
+            <button type="button" (click)="updateNR()">Zero NR</button>
+          </p>
+  
+          <!--  Footer component-->
+  
+          <div class="col-md-12  col-sm-1">
+            <!--Linha-->
+            <hr class="mb-12 linha">
+           
+            <button type="submit" class="btn btn-info pull-right" [disabled]="!nrForm.valid">Submit</button>
+            <!--<button type="submit"  class="btn btn-info pull-right">Submit</button>-->
+          </div>
+          <!--/.Footer component-->
+        </form>
+  
+      </div>
+      <!-- /. Dados da NOTA  -->
+  
+    </div>
+    <!-- /. Bordas -->
+
+</div>
+<!-- /. FIM -->

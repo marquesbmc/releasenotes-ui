@@ -1,0 +1,158 @@
+<section class="content" style="padding-top: 5px;">
+
+
+
+  <section class="col-lg-12 connectedSortable">
+
+    <div class="row">
+      <div class="col-md-10" style="margin-left:0%">
+
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Listar Notas de Release</h3>
+          </div>
+
+          <div class="box-body">
+
+
+
+            <div class="col-md-12"
+              style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px; vertical-align: middle;">
+              <div class="form-group">
+                <label for="inputcodigo" class="col-md-4 control-label">Número da Release</label>
+                <div class="col-md-8" style="padding-right: 0px; padding-left: 0px;">
+                  <input type="text" [(ngModel)]="releaseNotesFilter.codigo" name="codigo" class="form-control"
+                    id="inputcodigo">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12"
+              style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px; vertical-align: middle;">
+              <div class="form-group">
+                <label for="inputnomeSistema" class="col-md-4 control-label">Sistema</label>
+                <div class="col-md-8" style="padding-right: 0px; padding-left: 0px;">
+                  <input type="text" [(ngModel)]="releaseNotesFilter.nomeSistema" name="nomeSistema"
+                    class="form-control" id="inputnomeSistema">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12"
+              style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px; vertical-align: middle;">
+              <div class="form-group">
+                <label for="inputdataCriacao" class="col-md-4 control-label">Data Criação</label>
+                <div class="col-md-8" style="padding-right: 0px; padding-left: 0px;">
+                  <input type="date" placeholder="MY PLACEHOLDER" [(ngModel)]="releaseNotesFilter.dataCriacao"
+                    name="dataCriacao" class="form-control pull-right" id="inputdataCriacao">
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="col-md-12"
+              style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px; vertical-align: middle;">
+              <div class="form-group">
+                <label for="inputversaoCodigoFonte" class="col-md-4 control-label">Versão Código Fonto (TAG)</label>
+                <div class="col-md-8" style="padding-right: 0px; padding-left: 0px;">
+                  <input type="text" [(ngModel)]="releaseNotesFilter.versaoCodigoFonte" name="versaoCodigoFonte"
+                    class="form-control" id="inputversaoCodigoFonte">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-12"
+              style="padding-bottom: 10px; padding-right: 0px; padding-left: 0px; vertical-align: middle;">
+              <div class="form-group">
+                <label for="inputstatusNr" class="col-md-4 control-label">Status</label>
+                <div class="col-md-8" style="padding-right: 0px; padding-left: 0px;">
+                  <select [(ngModel)]="releaseNotesFilter.statusNr" class="form-control select2" name="statusNr"
+                    id="inputstatusNr" style="width: 100%;">
+                    <option>Novo</option>
+                    <option>Atribuído</option>
+                    <option>Inconforme</option>
+                    <option>Reavaliar</option>
+                    <option>Aprovado</option>
+                    <option>Reprovado</option>
+                    <option>Cancelado</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+          </div>
+
+
+          <div class="box-footer">
+            <button class="btn btn-info pull-left" (click)="cleanFilter()">Limpar Filtros</button>
+            <button style="margin-left: 10px" class="btn btn-info pull-right" (click)="filter()">Filtrar</button>
+          </div>
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tr>
+                <th>Número</th>
+                <th>Sistema</th>
+                <th>Data Criacao</th>
+                <th>TAG</th>
+                <th>Versão</th>
+                <th>Status</th>
+                <th style="width: 10px">&nbsp;</th>
+                <th style="width: 10px">&nbsp;</th>
+                <th style="width: 10px">&nbsp;</th>
+                <!-- <th style="width: 10px" *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">&nbsp;</th>-->
+                <!--<th style="width: 10px" *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">&nbsp;</th> -->
+                <!--<th style="width: 10px">&nbsp;</th>-->
+              </tr>
+              <tr *ngFor="let nr of listReleaseNotes">
+                <td style="text-align: center">{{nr.codigo}}</td>
+                <td>{{nr.nomeSistema}}</td>
+                <td>{{nr.dataCriacao | date: 'dd/MM/yyyy'}}</td>
+                <td>{{nr.versaoCodigoFonte}}</td>
+                <td>{{nr.versaoCodigoCompilado}}</td>
+                <td>{{nr.statusNr}}</td>
+               
+                <!--<td *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">
+                <td>
+                  <button class="btn btn-primary" (click)="edit(nr.codigo)" data-toggle="tooltip" data-placement="top"
+                    title="Editar"
+                    [disabled]="!(shared.user.profile == 'ROLE_CUSTOMER' && (nr.status == 'Novo' || ticket.status == 'Questionado'))">
+                    <i class="glyphicon glyphicon-pencil"></i></button>
+                </td>-->
+                <td>
+                    <button class="btn btn-primary" (click)="edit(nr.codigo)" data-toggle="tooltip" data-placement="top"
+                      title="Editar">
+                      <i class="glyphicon glyphicon-pencil"></i></button>
+                  </td>
+                <!--<td *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">-->
+                <td>
+                  <button class="btn btn-danger" (click)="delete(nr.codigo)" data-toggle="tooltip"
+                    data-placement="top" title="Deletar"><i class="glyphicon glyphicon-remove"></i></button>
+                </td>
+                <td><button class="btn btn-success" (click)="detail(nr.codigo)" data-toggle="tooltip"
+                    data-placement="top" title="Detalhar"><i class="glyphicon glyphicon-search"></i></button></td>
+              </tr>
+            </table>
+          </div>
+          <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+              <li><a href="" (click)="setPreviousPage($event)">&laquo;</a></li>
+              <li *ngFor="let p of pages; let i=index">
+                <a [ngClass]="{'pagination-focus':i==page}" href="" (click)="setPage(i,$event)">{{i+1}}</a>
+              </li>
+              <li><a href="" (click)="setNextPage($event)">&raquo;</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</section>

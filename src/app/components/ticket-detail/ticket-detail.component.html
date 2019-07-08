@@ -1,0 +1,176 @@
+<section class="col-lg-7 connectedSortable">
+
+  <!--Início TICKET DETALHADO-->
+  <section class="col-lg-12 connectedSortable" style="height:auto">
+    <div class="box box-info">
+      <div class="box-header with-border" style="margin-bottom: 0px; border-bottom-width: 0px;">
+        <i class="fa  fa-calendar-plus-o"></i>
+        <h3 class="box-title">Ticket Detalhado</h3>
+      </div>
+      <form class="form-horizontal" #form="ngForm" (ngSubmit)="register()" novalidate>
+        <div class="box-body">
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item" style="padding-bottom: 30px; ">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <b>Codigo:</b> <span>{{ticket.codigo}}</span>
+                </div>
+                <div class="col-md-6">
+                  <b>Dono :</b> <span>{{ticket?.user?.matricula}}</span>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item" style="padding-bottom: 30px; ">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <b>Nota de Release :</b> <span>{{ticket.numeroNotaRelease}}</span>
+                </div>
+                <div class="col-md-6">
+                  <b>Coordenação :</b> <span>{{ ticket?.user?.coordenacao}}</span>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item" style="padding-bottom: 30px; ">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <b>Data Abertura :</b> <span>{{ticket.dataAbertura | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                </div>
+                <div class="col-md-6">
+                  <b>Data Fechamento :</b> <span>{{ticket.dataInstalacao | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item" style="padding-bottom: 30px; ">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <b>Atribuído :</b> <span>{{ticket?.assignedUser?.matricula}}</span>
+                </div>
+                <div class="col-md-6">
+                  <b>Status :</b> <span>{{ticket.status}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!--FIM TICKET DETALHADO-->
+
+
+  <!--Início Escopo-->
+  <section class="col-lg-12 connectedSortable" *ngIf="
+      (
+        shared.user.profile == 'ROLE_CUSTOMER' 
+        && 
+        ticket.status == 'Inconforme'
+      )
+      ||
+      (
+        shared.user.profile == 'ROLE_TECHNICIAN' 
+        && 
+        (
+          ticket.status == 'Reavaliar'  
+          || 
+          ticket.status == 'Novo'
+          || 
+          ticket.status == 'Atribuído'
+        )
+      )
+    ">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <i class="fa  fa-edit "></i>
+        <h3 class="box-title">Escopo</h3>
+      </div>
+      <div class="form-group" style="
+        margin-left:2%;
+        margin-right:2%;
+        padding-left: -15;
+        padding-right: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 2%;
+        padding-left: 15px;">
+        <textarea class="form-control" style="margin: 0px 0px 0px 0px; width: 100%; height: 215px;
+            overflow-y: scroll ; 
+            resize: none;" id="msg" name="msg"
+          [disabled]="(ticket.status == 'Novo' || (ticket.status == 'Atribuído' && ticket?.assignedUser?.matricula != shared.user.matricula ))"
+          #msg="ngModel" rows="20" placeholder="Escopo..." required minlength="4" [(ngModel)]="ticket.info"></textarea>
+        <div class="box-footer" style="padding-bottom: 15px; padding-top: 15px; min-height: 55px;">
+
+          <button
+            *ngIf="shared.user.profile == 'ROLE_TECHNICIAN' && ((ticket?.assignedUser?.matricula != shared.user.matricula && ticket.status == 'Atribuído' ) || (ticket.status == 'Novo' || ticket.status == 'Reavaliar'))"
+            (click)="changeStatus('Atribuído', msg.value)" class="btn btn-primary">
+            Atribuir</button>
+
+          <button
+            *ngIf="shared.user.profile == 'ROLE_TECHNICIAN' && (ticket.status == 'Atribuído' && ticket?.assignedUser?.matricula == shared.user.matricula)"
+            (click)="changeStatus('Inconforme', msg.value)" class="btn btn-primary" [disabled]="(msg.value==null)">
+            Inconforme</button>
+
+          <button
+            *ngIf="shared.user.profile == 'ROLE_TECHNICIAN' && (ticket.status == 'Atribuído'&& ticket?.assignedUser?.matricula == shared.user.matricula)"
+            (click)="changeStatus('Aprovado', msg.value)" class="btn btn-primary" [disabled]="(msg.value==null)">
+            Aprovado</button>
+
+          <button
+            *ngIf="shared.user.profile == 'ROLE_TECHNICIAN' && (ticket.status == 'Atribuído'&& ticket?.assignedUser?.matricula == shared.user.matricula)"
+            (click)="changeStatus('Reprovado', msg.value)" class="btn btn-primary" [disabled]="(msg.value==null)">
+            Reprovado</button>
+
+          <button *ngIf="shared.user.profile == 'ROLE_CUSTOMER' && ticket.status == 'Inconforme'"
+            (click)="changeStatus('Reavaliar', msg.value)" class="btn btn-primary" [disabled]="(msg.value==null)">
+            Reavaliar</button>
+
+         
+
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--FIM Escopo-->
+
+</section>
+
+<!--Início Histórico -->
+<section class="col-lg-5 connectedSortable">
+  <div class="box box-info" style="height:auto; max-height:637px; overflow: auto;">
+    <div class="box-header">
+      <i class="fa fa-comments-o"></i>
+      <h3 class="box-title">Histórico</h3>
+    </div>
+    <div class="box-body chat slimScrollDiv" id="chat-box">
+      <table class="table table-hover">
+        <tr>
+          <div class="item" style="padding-top: 40px;">
+            <p class="message">
+              <a class="name">
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>
+                  {{ticket.dataAbertura | date:'dd/MM/yyyy HH:mm:ss'}}</small>
+                {{ ticket?.user?.matricula}}
+              </a>
+              <td [innerHTML]="ticket?.descricao"></td>
+            </p>
+          </div>
+        </tr>
+
+        <tr *ngFor="let change of ticket.changes">
+          <div class="item" style="padding-top: 40px;">
+            <p class="message">
+              <a class="name">
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>
+                  {{ change?.dateChangeStatus | date:'dd/MM/yyyy HH:mm:ss'}}</small>
+                {{ change?.userChange}}
+              </a>
+              <td [innerHTML]="change?.info"></td>
+            </p>
+          </div>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+<!--FIM Histórico-->

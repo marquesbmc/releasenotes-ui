@@ -1,0 +1,59 @@
+div.titulo{
+    margin-left:0%;
+    padding-left: 100px;
+    padding: 15px; 
+    height:auto; 
+    max-height:637px; 
+    overflow: auto;
+}
+h3{
+    margin-top: 0px;
+    padding-left: 15px;
+    padding-top: 15px;
+    margin-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+hr.titulolinha{
+    margin-top: 0px;
+    margin-bottom: 15px;
+    background-color: Gray;
+    height: 2px;
+    border: 0;
+}
+
+hr.linha{
+    background-color: Gray;
+    height: 2px;
+    border: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+hr.sublinha{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: Gray;
+    height: 1px;
+    border: 0;
+}
+h4.subtitulo{
+    margin-bottom: 2px;
+    margin-top: 10px;
+    margin-top: 20px;
+}
+
+
+label.campo{
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+div.campo{
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+}
+
+

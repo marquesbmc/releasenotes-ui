@@ -1,0 +1,12 @@
+textarea {
+    width: 487px;
+    height: 76px;
+    background-color: #f4f4f4;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+   }
+
+   .infoChange {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+   }

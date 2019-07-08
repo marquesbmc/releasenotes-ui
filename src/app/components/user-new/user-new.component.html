@@ -1,0 +1,105 @@
+<div class="col-md-6" style="margin-left:0%">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">New User</h3>
+    </div>
+    <form class="form-horizontal" #form="ngForm" (ngSubmit)="register()" novalidate>
+      <div [ngClass]="classCss" role="alert" *ngIf="message">
+        <strong>{{ message.text }}</strong>
+      </div>
+      <div class="box-body">
+        <div [ngClass]="getFormGroupClass(matricula.invalid,matricula.dirty)">
+          <label for="inputMatricula" class="col-sm-2 control-label">Matricula</label>
+          <div class="col-sm-10">
+            <input type="text" 
+                    [(ngModel)]="user.matricula"
+                    name="matricula"
+                    class="form-control" 
+                    id="inputMatricula" 
+                    #matricula="ngModel"
+                    placeholder="Matricula"
+                    matricula>
+            <span class="help-block" *ngIf="matricula.invalid  && matricula.dirty">Matrícula Invalida </span>
+          </div>
+        </div>
+
+
+        <div [ngClass]="getFormGroupClass(nome.invalid,nome.dirty)">
+          <label for="inputNome" class="col-sm-2 control-label">Nome</label>
+          <div class="col-sm-10">
+            <input type="text" 
+                    [(ngModel)]="user.nome"
+                    name="nome"
+                    class="form-control" 
+                    id="inputNome" 
+                    #nome="ngModel"
+                    placeholder="Nome"
+                    nome>
+            <span class="help-block" *ngIf="nome.invalid  && nome.dirty">Nome Invalida </span>
+          </div>
+        </div>
+
+       
+
+        <div [ngClass]="getFormGroupClass(password.invalid,password.dirty)">
+          <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" 
+                    [(ngModel)]="user.password"
+                    name="password" 
+                    class="form-control" 
+                    id="inputPassword" 
+                    placeholder="Password"
+                    #password="ngModel" 
+                    required>
+            <span class="help-block" *ngIf="password.invalid && password.dirty">Password is required</span>
+          </div>
+        </div>
+
+        <div [ngClass]="getFormGroupClass(coordenacao.invalid,coordenacao.dirty)">
+            <label for="inputCoordenacao" class="col-sm-2 control-label">Coordenação</label>
+            <div class="col-sm-10">
+              <select [(ngModel)]="user.coordenacao" 
+                  class="form-control select2" 
+                  name="coordenacao"
+                  id="inputCoordenacao"
+                  #coordenacao="ngModel"
+                  style="width: 100%;"
+                  required>
+                  <option>Coord 1</option>
+                  <option>Coord 2</option>
+                  <option>Coord 3</option>
+                  <option>Coord 4</option>
+                  <option>Arquitetura</option>
+                </select>
+              <span class="help-block" *ngIf="coordenacao.invalid && coordenacao.dirty">Coordenação is required</span>
+            </div>
+          </div>
+
+
+
+
+        <div [ngClass]="getFormGroupClass(profile.invalid,profile.dirty)">
+          <label for="inputProfile" class="col-sm-2 control-label">Profile</label>
+          <div class="col-sm-10">
+            <select [(ngModel)]="user.profile" 
+                class="form-control select2" 
+                name="profile"
+                id="inputProfile"
+                #profile="ngModel"
+                style="width: 100%;"
+                required>
+                <option>ROLE_ADMIN</option>
+                <option>ROLE_CUSTOMER</option>
+                <option>ROLE_TECHNICIAN</option>
+              </select>
+            <span class="help-block" *ngIf="profile.invalid && profile.dirty">Profile is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <button type="submit" [disabled]="!form.valid" class="btn btn-info pull-right">Submit</button>
+      </div>
+    </form>
+  </div>
+  </div>

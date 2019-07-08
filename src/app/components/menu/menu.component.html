@@ -1,0 +1,79 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+
+    <ul class="sidebar-menu" data-widget="tree">
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-edit"></i> <span>Adminitração</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li *ngIf="shared.user.profile == 'ROLE_ADMIN'"><a [routerLink]="['/user-list']"><i
+                class="fa fa-circle-o"></i> Listar Usuários</a></li>
+          <li *ngIf="shared.user.profile == 'ROLE_ADMIN'"><a [routerLink]="['/user-new']"><i class="fa fa-circle-o"></i>
+              Novo Usuário</a></li>
+          <li><a [routerLink]="['/user-changepassword']"><i class="fa fa-circle-o"></i> Troca de senha</a></li>
+        </ul>
+      </li>
+
+
+      <li class="treeview" *ngIf="shared.user.profile != 'ROLE_ADMIN'">
+        <a href="#">
+          <i class="fa fa-edit"></i> <span>Ticket</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['/ticket-list']"><i class="fa fa-circle-o"></i> Listar Ticket</a></li>
+          <li *ngIf="shared.user.profile == 'ROLE_CUSTOMER'"> <a [routerLink]="['/ticket-new']"><i
+                class="fa fa-circle-o"></i> Novo Ticket</a></li>
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-edit"></i> <span>Release</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <!--<li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> Pesquisar</a></li>-->
+          <li *ngIf="shared.user.profile == 'ROLE_CUSTOMER'">
+            <a [routerLink]="['/releasenotes-list']">
+              <i class="fa fa-circle-o"></i> Listar Release
+            </a>
+          </li><li *ngIf="shared.user.profile == 'ROLE_CUSTOMER'"> <a [routerLink]="['/releasenotes-new']"><i
+            class="fa fa-circle-o"></i> Nova Release </a>
+          </li>
+          <li *ngIf="shared.user.profile == 'ROLE_CUSTOMER'"> <a [routerLink]="['/nr-new']"><i
+                class="fa fa-circle-o"></i> Nova Release Total</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-edit"></i> <span>Sumary</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['/ticket-list']"><i class="fa fa-circle-o"></i> To view</a></li>
+        </ul>
+      </li>
+
+      <li class="header">LABELS</li>
+      <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+      <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+      <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+    </ul>
+  </section>
+</aside>
