@@ -21,7 +21,7 @@ export class ReleasenotesNewComponent implements OnInit {
 listTeamInput= new Array<Team>() ;
 
 
-//listTeam: Team[] = [{codigo:"",nome:"",matricula:"",papel:""}];
+
   releasenotes = new Releasenotes('', '', '', '', '', '', '', '', '', '',  new Array<Team>());
   
   shared: SharedService;
